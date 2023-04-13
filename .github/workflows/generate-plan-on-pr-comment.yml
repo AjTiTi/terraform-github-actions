@@ -1,0 +1,47 @@
+name: Terraform Plan
+
+on:
+  issue_comment:
+    paths:
+      - infrastructure/**
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  plan:
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, 'terraform plan') }}
+    runs-on: ubuntu-latest
+    name: Create terraform plan
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Secrets to authorize terraform using the Azure Service Principal
+      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID_DEV }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET_DEV }}
+      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID_DEV }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID_DEV }}
+      # Additinal secrets and values to pass as variables to the infrastructure
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD_DEV }}
+      DB_LOGIN: ${{ secrets.DB_LOGIN_DEV }}
+      ENV: dev
+      # A set of commands that will be ran prior to terraform init
+      TERRAFORM_PRE_RUN: |
+        # Install latest Azure CLI
+        curl -skL https://aka.ms/InstallAzureCLIDeb | bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: refs/pull/${{ github.event.issue.number }}/merge
+
+      - name: terraform plan
+        uses: dflook/terraform-plan@v1
+        with:
+          path: infrastructure
+          label: ${{ env.ENV }}
+          workspace: ${{ env.ENV }}
+          variables: |
+            db_password = "${{ env.DB_PASSWORD }}"
+            db_login = "${{ env.DB_LOGIN }}"
+          var_file: infrastructure/${{ env.ENV }}.tfvars.json
