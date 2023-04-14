@@ -7,7 +7,7 @@ This repository is relying on 2 external GitHub actions:
 - [Manual Workflow Approval](https://github.com/trstringer/manual-approval)
 - [Terraform GitHub Actions](https://github.com/dflook/terraform-github-actions)
 
-If you want to know more, please watch [this video]().
+If you want to know more, please watch [this video](https://youtu.be/QpRfZxUUinc).
 
 ## [Generate plan on PR](./.github/workflows/generate-plan-on-pr.yml)
 
