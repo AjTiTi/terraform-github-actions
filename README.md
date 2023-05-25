@@ -9,6 +9,11 @@ This repository is relying on 2 external GitHub actions:
 
 If you want to know more, please watch [this video](https://youtu.be/QpRfZxUUinc).
 
+<BlockComponent
+block={{"owner":"ElijahPepe","repo":"youtube-block","id":"youtube-block","type":"file"}}
+context={{"repo":"terraform-github-actions","owner":"AjTiTi","path":"youtube.txt","sha":"feat/github-blocks","file":"README.md"}}
+/>
+
 ## [Generate plan on PR](./.github/workflows/generate-plan-on-pr.yml)
 
 This workflow generates the terraform plan for the dev environment when one of the developers opens a new pull request. After the plan will be succesfully generated, it will be shown as a comment in the pull request, so the developer can review the code and the impact it will make in the cloud at the same time.
