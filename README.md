@@ -57,3 +57,15 @@ This workflow is running when the new release is created and it contains 3 jobs:
 block={{"owner":"Krzysztof-Cieslak","repo":"IDE-Block","id":"ide-block","type":"file"}}
 context={{"repo":"terraform-github-actions","owner":"AjTiTi","path":".github/workflows/release.yml","sha":"HEAD","file":"README.md"}}
 />
+
+<BlockComponent
+  block={{
+    owner: "PerfectPan",
+    repo: "blocks",
+    id: "plantuml",
+    type: "file",
+  }}
+  context={{
+    path: "docs/diagram.puml"
+  }}
+/>
